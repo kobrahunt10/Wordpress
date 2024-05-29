@@ -1,0 +1,28 @@
+services:
+    wp_image:
+        stdin_open: true
+        tty: true
+        container_name: wp-app-container-yml
+        ports:
+            - 10002:80
+        networks:
+            - yml-network
+        image: wp_image
+
+    mysql:
+        stdin_open: true
+        tty: true
+        container_name: wp-db-container-yml
+        networks:
+            - yml-network
+        environment:
+            - MYSQL_ROOT_PASSWORD=P@ssw0rd@123
+            - MYSQL_USER=prajun
+            - MYSQL_PASSWORD=P@ssw0rd@123
+            - MYSQL_DATABASE=wordpressdb
+        image: mysql:8.0.36
+        command: --default-authentication-plugin=mysql_native_password
+networks:
+    yml-network:
+        external: true
+        name: yml-network
